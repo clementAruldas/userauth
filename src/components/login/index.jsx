@@ -5,7 +5,7 @@ import Input from "../input";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
+import { encrypt } from "../../cipher";
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,7 +110,8 @@ function Login() {
       if (checking.status) {
         setResponseData(checking.data);
         // console.log(checking.data)
-        sessionStorage.setItem("userdata", JSON.stringify(checking.data));
+        let encData = await encrypt(checking.data);
+        sessionStorage.setItem("userdata", JSON.stringify(encData));
         navigate("/dashboard", { state: checking.data });
       } else {
         // alert(checking.msg);

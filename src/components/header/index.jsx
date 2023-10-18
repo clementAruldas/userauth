@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { getSessionData } from "../../session";
+
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -128,11 +130,11 @@ function Header() {
   useEffect(() => {
     checkData();
   }, []);
-  const checkData = () => {
-    const userData = sessionStorage.getItem("userdata");
-    let data = JSON.parse(userData);
+  const checkData = async () => {
+    // const userData = sessionStorage.getItem("userdata");
+    let data = await getSessionData();
     if (data?.hasOwnProperty("active_module")) {
-      setUserName(JSON.parse(userData));
+      setUserName(data);
     } else {
       navigate("/");
     }

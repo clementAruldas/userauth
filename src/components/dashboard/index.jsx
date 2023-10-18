@@ -3,16 +3,15 @@ import styled from "styled-components";
 import Layout from "../../layout";
 import Linechart from "./linechart";
 import TableData from "./table";
-
+import { getSessionData } from "../../session";
 function DashBoard() {
   const [userurl, setUserUrl] = useState({});
 
   useEffect(() => {
     checkUser();
   }, []);
-  const checkUser = () => {
-    let dataFetch = JSON.parse(sessionStorage.getItem("userdata"));
-    console.log(dataFetch);
+  const checkUser = async () => {
+    let dataFetch = await getSessionData();
     setUserUrl(dataFetch);
   };
 

@@ -6,14 +6,16 @@ import Layout from "./layout";
 import Settings from "./components/settings/index";
 import { useEffect, useState } from "react";
 import NotFound from "./components/NotFound";
+import { getSessionData } from "./session";
+
 function App() {
   const [userRole, setUserRole] = useState();
   const [admin, setAdmin] = useState(false);
   useEffect(() => {
     checkUser();
   }, [JSON.parse(sessionStorage.getItem("userdata"))]);
-  const checkUser = () => {
-    let dataFetch = JSON.parse(sessionStorage.getItem("userdata"));
+  const checkUser = async () => {
+    let dataFetch = await getSessionData();
     setUserRole(dataFetch);
     if (dataFetch?.active_module === "user") {
       setAdmin(true);
