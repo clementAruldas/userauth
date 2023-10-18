@@ -1,12 +1,21 @@
-import React from 'react'
-import Login from "../components/login";
+import React from "react";
+import styled from "styled-components";
 
-function Layout() {
+const LayoutContainer = styled.section``;
+
+const HeaderWrapper = styled.section`
+  height: 80px;
+  width: 100%;
+`;
+
+function Layout(props) {
+  const { children } = props;
   return (
-    <div>
-      layout
-    </div>
-  )
+    <LayoutContainer>
+      <HeaderWrapper></HeaderWrapper>
+      {children}
+    </LayoutContainer>
+  );
 }
 
-export default Layout
+export default Layout;

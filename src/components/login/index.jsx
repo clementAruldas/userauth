@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Cred from "../../json/cred.json";
 import Input from "../input";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -31,7 +35,7 @@ const Button = styled.div`
   padding: 1rem;
   font-size: 1rem;
   font-family: Lato;
-  color:#000;
+  color: #000;
   text-align: center;
   background: linear-gradient(120deg, #f09 0%, #0ff 50%, #9f0 100%);
   border-radius: 10px;
@@ -46,18 +50,22 @@ const LoginHeader = styled.p`
   font-family: Lato;
 `;
 function Login() {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     username: "",
     password: "",
   });
   const [responseData, setResponseData] = useState({});
 
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
-    setErrMsg("");
+
+    if (errMsg.msg !== "") {
+      delete errMsg.msg;
+    }
   };
 
   const checkData = (credData) => {
@@ -82,13 +90,52 @@ function Login() {
     return response;
   };
 
-  const handleLogin = async () => {
-    const checking = await checkData(loginData);
-
-    if (checking.status) {
-      setResponseData(checking.data);
+  const validation = (data) => {
+    let err = {};
+    if (data.username?.length === 0 || data.password.length === 0) {
+      err = { msg: "Check Username or Password" };
     } else {
-      setErrMsg(checking.msg);
+      err = {};
+    }
+
+    return err;
+  };
+
+  const handleLogin = async () => {
+    const validate = await validation(loginData);
+    setErrMsg(validate);
+    if (Object.keys(validate)?.length === 0) {
+      const checking = await checkData(loginData);
+
+      if (checking.status) {
+        setResponseData(checking.data);
+        // console.log(checking.data)
+        sessionStorage.setItem("userdata",checking.data)
+        navigate("/dashboard",{state:checking.data})
+      } else {
+        // alert(checking.msg);
+        toast.error(checking.msg, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } else {
+      toast.error(validate.msg, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
@@ -116,6 +163,7 @@ function Login() {
         />
         <Span></Span>
       </PasswordContainer>
+      <ToastContainer />
       <Button onClick={handleLogin}>Login</Button>
     </LoginContainer>
   );

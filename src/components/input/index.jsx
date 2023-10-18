@@ -9,7 +9,7 @@ function Input(props) {
         </label>
         <input
           type={props.type}
-          id="myInput"
+          id={props.name}
           class="input-group__input"
           name={props.name}
           value={props.value}
