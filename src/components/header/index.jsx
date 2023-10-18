@@ -16,8 +16,8 @@ const ProfileWrapper = styled.div`
   text-transform: capitalize;
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
   }
 `;
 
@@ -36,12 +36,80 @@ const NavLinkContainer = styled.div`
       transform: scale(1.2);
     }
   }
+  @media (max-width: 430px) {
+    display: none;
+  }
+`;
+
+const ResponsiveNav = styled.div`
+  display: none;
+  p {
+    a {
+      text-decoration: none;
+      color: black;
+      text-transform: capitalize;
+    }
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  @media (max-width: 430px) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    p {
+      a {
+        text-decoration: none;
+        color: black;
+        text-transform: capitalize;
+      }
+      &:hover {
+        transform: none;
+      }
+    }
+    div {
+      display: flex;
+      justify-content: flex-end;
+      img {
+        width: 40px;
+        height: 30px;
+      }
+    }
+  }
+`;
+
+const ResponsiveNavContainer = styled.div`
+  display: none;
+  @media (max-width: 430px) {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    img {
+      width: 50px;
+      height: 35px;
+    }
+  }
 `;
 
 const LogoWrapper = styled.div`
   img {
     width: 200px;
     height: 100px;
+  }
+  @media (max-width: 430px) {
+    img {
+      width: 150px;
+      height: 100px;
+    }
   }
 `;
 
@@ -55,6 +123,7 @@ const TextContainer = styled.div`
 `;
 function Header() {
   const [userName, setUserName] = useState("");
+  const [menuShow, setmenuShow] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     checkData();
@@ -100,6 +169,33 @@ function Header() {
           <span onClick={logoutFun}>Logout</span>
         </TextContainer>
       </ProfileWrapper>
+      {!menuShow && (
+        <ResponsiveNavContainer onClick={() => setmenuShow(true)}>
+          <img
+            src="https://css-tricks.com/wp-content/uploads/2012/10/threelines.png"
+            alt="menu"
+          />
+          Menu
+        </ResponsiveNavContainer>
+      )}
+      {menuShow && (
+        <ResponsiveNav>
+          <div>
+            <img
+              onClick={() => setmenuShow(false)}
+              src="https://t3.ftcdn.net/jpg/03/64/30/82/360_F_364308273_cV9OrZrqUpZ8En9rC8KxBqaxkVg95ZTY.jpg"
+              alt="close"
+            />
+          </div>
+
+          {userName.permission?.length > 0 &&
+            userName.permission?.map((item) => (
+              <p>
+                <Link to={item.path}>{item.name}</Link>
+              </p>
+            ))}
+        </ResponsiveNav>
+      )}
     </HeaderContainer>
   );
 }

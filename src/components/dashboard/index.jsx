@@ -14,8 +14,6 @@ function DashBoard() {
     let dataFetch = JSON.parse(sessionStorage.getItem("userdata"));
     console.log(dataFetch);
     setUserUrl(dataFetch);
-    if (dataFetch?.active_module === "admin") {
-    }
   };
 
   const DashBoardContainer = styled.div`
@@ -49,9 +47,6 @@ function DashBoard() {
             </div>
           ) : (
             <>
-              <div>
-                <Linechart />
-              </div>
               <div>
                 <TableData />
               </div>
