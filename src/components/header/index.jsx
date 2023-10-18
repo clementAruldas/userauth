@@ -61,7 +61,6 @@ function Header() {
   }, []);
   const checkData = () => {
     const userData = sessionStorage.getItem("userdata");
-    console.log(userData);
     let data = JSON.parse(userData);
     if (data?.hasOwnProperty("active_module")) {
       setUserName(JSON.parse(userData));
@@ -86,7 +85,7 @@ function Header() {
         {userName.permission?.length > 0 &&
           userName.permission?.map((item) => (
             <p>
-              <Link to={`/${item}`}>{item}</Link>
+              <Link to={item.path}>{item.name}</Link>
             </p>
           ))}
       </NavLinkContainer>

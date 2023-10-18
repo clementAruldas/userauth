@@ -10,13 +10,17 @@ const HeaderWrapper = styled.section`
   height: 100px;
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  background-color: white;
+  z-index: 1;
 `;
 
-const NavBarContainer = styled.aside`
-  width: 20%;
-  min-height: 90vh;
+const BodyContainer = styled.section`
+  padding-top: 100px;
+  // position: fixed;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f5f5, #ffffff);
 `;
-const BodyContainer = styled.section``;
 
 function Layout(props) {
   const { children } = props;
