@@ -110,8 +110,8 @@ function Login() {
       if (checking.status) {
         setResponseData(checking.data);
         // console.log(checking.data)
-        sessionStorage.setItem("userdata",checking.data)
-        navigate("/dashboard",{state:checking.data})
+        sessionStorage.setItem("userdata", JSON.stringify(checking.data));
+        navigate("/dashboard", { state: checking.data });
       } else {
         // alert(checking.msg);
         toast.error(checking.msg, {
