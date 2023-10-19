@@ -9,18 +9,21 @@ import NotFound from "./components/NotFound";
 import { getSessionData } from "./session";
 import Profile from "./components/profile";
 function App() {
-  const [userRole, setUserRole] = useState();
+  // const [userRole, setUserRole] = useState();
   const [admin, setAdmin] = useState(false);
+  const [user, setuser] = useState(false);
   useEffect(() => {
     checkUser();
   }, [JSON.parse(sessionStorage.getItem("userdata"))]);
   const checkUser = async () => {
     let dataFetch = await getSessionData();
-    setUserRole(dataFetch);
+    // setUserRole(dataFetch);
     if (dataFetch?.active_module === "user") {
       setAdmin(true);
+      setuser(true);
     } else {
       setAdmin(false);
+      setuser(false);
     }
   };
 
@@ -41,11 +44,6 @@ function App() {
     {
       path: "/settings",
       element: <Layout>{!admin ? <Settings /> : <NotFound />}</Layout>,
-      // loader: loader,
-    },
-    {
-      path: "/profile",
-      element: <Layout>{admin ? <Profile /> : <NotFound />}</Layout>,
       // loader: loader,
     },
   ]);

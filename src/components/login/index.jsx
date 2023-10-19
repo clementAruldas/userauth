@@ -93,7 +93,7 @@ function Login() {
   const validation = (data) => {
     let err = {};
     if (data.username?.length === 0 || data.password.length === 0) {
-      err = { msg: "Check Username or Password" };
+      err = { msg: "Please Check Username or Password" };
     } else {
       err = {};
     }

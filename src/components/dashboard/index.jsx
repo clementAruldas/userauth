@@ -4,6 +4,7 @@ import Layout from "../../layout";
 import Linechart from "./linechart";
 import TableData from "./table";
 import { getSessionData } from "../../session";
+import Profile from "../profile";
 function DashBoard() {
   const [userurl, setUserUrl] = useState({});
 
@@ -43,6 +44,8 @@ function DashBoard() {
           {userurl?.active_module === "user" ? (
             <div>
               <Linechart />
+              <br />
+              <Profile />
             </div>
           ) : (
             <>

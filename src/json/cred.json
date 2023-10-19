@@ -8,9 +8,6 @@
         {
           "name": "dashboard",
           "path":"/dashboard"
-        },{
-          "name": "profile",
-          "path":"/profile"
         }
       ]
     },
