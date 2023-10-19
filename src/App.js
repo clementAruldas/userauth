@@ -7,7 +7,7 @@ import Settings from "./components/settings/index";
 import { useEffect, useState } from "react";
 import NotFound from "./components/NotFound";
 import { getSessionData } from "./session";
-
+import Profile from "./components/profile";
 function App() {
   const [userRole, setUserRole] = useState();
   const [admin, setAdmin] = useState(false);
@@ -41,6 +41,11 @@ function App() {
     {
       path: "/settings",
       element: <Layout>{!admin ? <Settings /> : <NotFound />}</Layout>,
+      // loader: loader,
+    },
+    {
+      path: "/profile",
+      element: <Layout>{admin ? <Profile /> : <NotFound />}</Layout>,
       // loader: loader,
     },
   ]);

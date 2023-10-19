@@ -146,7 +146,7 @@ function Header() {
   };
   return (
     <HeaderContainer>
-      <LogoWrapper>
+      <LogoWrapper onClick={() => navigate("/dashboard")}>
         <img
           src="https://t4.ftcdn.net/jpg/02/04/59/29/360_F_204592965_Xgu7wwQEj8QSnmI0HALnFzyBAIUOMz0j.jpg"
           alt="logo"
